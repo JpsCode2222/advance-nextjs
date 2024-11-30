@@ -3,6 +3,8 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { ContextData } from "./Helper/Context";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function page(){
   const [user,setUser] = useState([]);
@@ -24,6 +26,19 @@ function page(){
       return <li className="mb-5 text-black" key={id}>{user.username} -: <Link href={`/${user.id}`} className="px-4 py-2 rounded bg-slate-300 text-black">Explore</Link></li>
     })
   }
+
+  const notify = ()=>{
+    toast.success('Login Success!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
   return(
     <>
     <div className="p-3">
@@ -42,6 +57,10 @@ function page(){
     </div>
     <hr/>
     <p>{userName}</p>
+    <hr/>
+    <br/>
+    <button className="px-4 py-2 bg-slate-300 rounded mt-5" onClick={notify}>Toaster</button>
+    <ToastContainer/>
     </div>
     </>
   )
