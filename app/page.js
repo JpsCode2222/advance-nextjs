@@ -1,7 +1,8 @@
 'use client'
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ContextData } from "./Helper/Context";
 
 function page(){
   const [user,setUser] = useState([]);
@@ -13,6 +14,9 @@ function page(){
   useEffect(()=>{
     getUsersData();
   },[])
+
+  let userName = useContext(ContextData);
+  console.log('userName : ',userName)
 
   let renderJs = <p className="text-black">Users not found !</p>
   if(user.length > 0){
@@ -36,6 +40,8 @@ function page(){
         }
       </ul>
     </div>
+    <hr/>
+    <p>{userName}</p>
     </div>
     </>
   )
