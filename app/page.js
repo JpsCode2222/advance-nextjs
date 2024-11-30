@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function page(){
   const [user,setUser] = useState([]);
@@ -10,10 +10,14 @@ function page(){
     setUser(data);
   }
 
+  useEffect(()=>{
+    getUsersData();
+  },[])
+
   let renderJs = <p className="text-black">Users not found !</p>
   if(user.length > 0){
     renderJs = user.map((user,id)=>{
-      return <li key={id}>{user.username}</li>
+      return <li className="mb-5 text-black" key={id}>{user.username} -: <Link href={`/${user.id}`} className="px-4 py-2 rounded bg-slate-300 text-black">Explore</Link></li>
     })
   }
   return(
@@ -26,7 +30,7 @@ function page(){
     {/* getting user data */}
     <button onClick={getUsersData} className="mt-3 px-4 py-2 bg-slate-300 rounded text-black">Get Data</button>
     <div className="bg-slate-400 p-5 mt-5">
-      <ul>
+      <ul className="text-black">
         {
          renderJs
         }
